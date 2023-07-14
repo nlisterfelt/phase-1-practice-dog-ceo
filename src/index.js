@@ -7,8 +7,7 @@ let dropDownLetter = 'a'
 
 function init(){
     const dropDownMenu = document.getElementById('breed-dropdown')
-    console.log(dropDownMenu)
-    
+
     fetch(imgUrl)
     .then(resp=>resp.json())
     .then(data => addImg(data.message))
@@ -26,7 +25,6 @@ function init(){
 
     dropDownMenu.addEventListener('change',e => {
         dropDownLetter = e.target.value
-        console.log(e.target.value)
         fetch(breedUrl)
         .then(resp => resp.json())
         .then(data => addBreed(data.message))
@@ -44,12 +42,14 @@ function addImg(data){
 }   
 
 function addBreed(obj){
+    const dogBreedsContainer = document.getElementById('dog-breeds')
+    dogBreedsContainer.innerHTML = ''
     breeds = Object.keys(obj)
     breeds.forEach(breed => {
         const firstLetter = breed.charAt(0)
         if(firstLetter===dropDownLetter){
             const breedHolder = document.createElement('li')
-            const dogBreedsContainer = document.getElementById('dog-breeds')
+            
             breedHolder.innerText = breed
             dogBreedsContainer.appendChild(breedHolder)
         }
